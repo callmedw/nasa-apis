@@ -1,0 +1,20 @@
+{
+  "name": "mashup",
+  "description": "mish mash of the greatest",
+  "main": "index.js",
+  "authors": [
+    "dw and kinz"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "sweet"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
