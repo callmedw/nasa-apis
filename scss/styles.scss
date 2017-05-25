@@ -1,7 +1,7 @@
 body {
   background-color: black;
   background-repeat: no-repeat;
-  background-image: cover;
+  background-size: contain;
 }
 
 .container {
@@ -20,4 +20,20 @@ body {
 h1{
   text-align: center;
   font-size: 3.5em;
+}
+
+.container .btn{
+  height: 5em;
+  width: 15em;
+  margin: 35px auto;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  left: -2%;
+  font-size: 3em;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
 }

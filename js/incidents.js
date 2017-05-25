@@ -15,5 +15,13 @@ Incident.prototype.getIncidentData = function(makeRow, displayIncidentDate, disp
   });
 };
 
+Incident.prototype.getCoordinates = function() {
+  $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
+    response.events.forEach(function(event){
+      displayIncidentDate(event.geometries[0].coordinates);
+    })
+  });
+};
+
 
 exports.incidentsModule = Incident;
