@@ -4,62 +4,71 @@ exports.apiKey = "iZyQjY1I1JaKIv0GwiE45PAK47xp0D6if4fn99qu";
 },{}],2:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
 
-function Potd(){
-}
+Potd = function(){
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getDate = function(displayDate) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+      displayDate(response.date);
   }).fail(function(error) {
     $('.date').text("date not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getTitle = function(displayTitle) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayTitle(response.title);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.title').text("title not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getDescription = function(displayDescription) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayDescription(response.explanation);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.description').text("description not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getHdurl = function(displayHdurl) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayHdurl(response.hdurl);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.container').append("picture not found");
   });
-}
+};
 
 exports.potdModule = Potd;
 
 },{"./../.env":1}],3:[function(require,module,exports){
-var apiKey = require('./../.env').apiKey;
-
 var Potd = require('./../js/mashup.js').potdModule;
+
+var displayDate = function(date){
+  $('.date').text(date);
+};
+
+var displayTitle = function(title){
+  $('.title').text(title);
+};
+
+var displayDescription = function(description){
+  $('.description').text(description);
+};
+
+var displayHdurl = function(hdurl){
+  $('body').css('background-image', 'url(' + hdurl + ')');
+};
 
 $(document).ready(function() {
   $('#pic-button').click(function() {
-    var newPotd = new Potd;
-    //prototype call would go here
-    $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey, function(response) {
-      $('.start').hide();
-      $('.date').append(response.date);
-      $('.title').append(response.title);
-      $('.description').append(response.explanation);
-      $('body').css('background-image', 'url(' + response.hdurl + ')');
-    }).fail(function(error) {
-      $('.description').text("failure!");
-    });
+    var newPotd = new Potd();
+    $('.start').hide();
+    newPotd.getDate(displayDate);
+    newPotd.getTitle(displayTitle);
+    newPotd.getDescription(displayDescription);
+    newPotd.getHdurl(displayHdurl);
   });
 });
 
-},{"./../.env":1,"./../js/mashup.js":2}]},{},[3]);
+},{"./../js/mashup.js":2}]},{},[3]);

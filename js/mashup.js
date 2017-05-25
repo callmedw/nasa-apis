@@ -1,38 +1,38 @@
 var apiKey = require('./../.env').apiKey;
 
-function Potd(){
-}
+Potd = function(){
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getDate = function(displayDate) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+      displayDate(response.date);
   }).fail(function(error) {
     $('.date').text("date not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getTitle = function(displayTitle) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayTitle(response.title);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.title').text("title not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getDescription = function(displayDescription) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayDescription(response.explanation);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.description').text("description not found");
   });
-}
+};
 
-Potd.prototype.getDate = function() {
+Potd.prototype.getHdurl = function(displayHdurl) {
   $.get('https://api.nasa.gov/planetary/apod?api_key=' + apiKey).then(function(response) {
-    return response.date;
+    displayHdurl(response.hdurl);
   }).fail(function(error) {
-    $('.date').text("date not found");
+    $('.container').append("picture not found");
   });
-}
+};
 
 exports.potdModule = Potd;
