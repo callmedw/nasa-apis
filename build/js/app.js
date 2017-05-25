@@ -5,40 +5,21 @@ exports.apiKey = "iZyQjY1I1JaKIv0GwiE45PAK47xp0D6if4fn99qu";
 Incident = function(){
 };
 
-Incident.prototype.getIncidentData = function(displayIncidentData) {
+Incident.prototype.getIncidentData = function(displayIncidentDate, displayIncidentTitle, displayType, displayUrl) {
   $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
-      displayIncidentDate(response.events[0].geometries[0].date);
-      displayIncidentTitle(response.events[0].title);
-      displayDescription(response.events[0].categories[0].title);
-      displayUrl(response.events[0].sources[0].url);
+    response.events.forEach(function(event){
+      displayIncidentDate(event.geometries[0].date);
+      displayIncidentTitle(event.title);
+      displayType(event.categories[0].title);
+      displayUrl(event.sources[0].url);
+    })
+
+
   }).fail(function(error) {
     $('#row-awesome').append("<tr><td>not found</td></tr>");
   });
 };
 
-// Incident.prototype.getIncidentTitle = function(displayIncidentTitle) {
-//   $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
-//     displayIncidentTitle(response.events[0].title);
-//   }).fail(function(error) {
-//     $('#row-awesome').append("<td>title not found</td>");
-//   });
-// };
-//
-// Incident.prototype.getType = function(displayDescription) {
-//   $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
-//     displayDescription(response.events[0].categories[0].title);
-//   }).fail(function(error) {
-//     $('#row-awesome').append("<td>type not found</td>");
-//   });
-// };
-//
-// Incident.prototype.getUrl = function(displayUrl) {
-//   $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
-//     displayUrl(response.events[0].sources[0].url);
-//   }).fail(function(error) {
-//     $('#row-awesome').append("<td>link not found</td>");
-//   });
-// };
 
 exports.incidentsModule = Incident;
 
@@ -85,46 +66,26 @@ exports.potdModule = Potd;
 },{"./../.env":1}],4:[function(require,module,exports){
 var Incident =  require('./../js/incidents.js').incidentsModule;
 
-var displayIncidentDate = function(response){
-  $('#row-awesome').append(`<td>${date}</td>`);
+var displayIncidentDate = function(date){
+  $('#table-body').append(`<td>${date}</td>`);
+};
+
+var displayIncidentTitle = function(title){
+  $('#table-body').append(`<td>${title}</td>`);
+};
+
+var displayType = function(type){
+  $('#table-body').append(`<td>${type}</td>`);
+};
+
+var displayUrl = function(url){
+  $('#table-body').append(`<td>${url}</td>`);
 };
 
 
-
-  var displayIncidentTitle = function(title){
-    $('#row-awesome').append(`<td>${title}</td>`);
-  };
-
-  var displayType = function(type){
-    $('#row-awesome').append(`<td>${type}</td>`);
-  };
-
-  var displayUrl = function(url){
-    $('#row-awesome').append(`<td>${url}</td>`);
-  };
-  
-// var displayIncidentData = function(response){
-//   response.forEach(function(event) {
-//     $('#row-awesome').append(`<td>${event.date}</td>`);
-//     $('#row-awesome').append(`<td>${title}</td>`);
-//     $('#row-awesome').append(`<td>${type}</td>`);
-//     $('#row-awesome').append(`<td>${url}</td>`);
-//   });
-// };
-
-// var generateTable = function(incidents) {
-//   $("#table-body").empty();
-//   incidents.forEach(function(incident, i){
-//     $("#event").append(`<tr><td>${date}</td><td>${title>}</td><td>${person.humidity}</td></tr>`);
-//   });
-// };
-
 $(document).ready(function() {
   var incident = new Incident();
-  incident.getIncidentData(displayIncidentData);
-  // incident.getIncidentTitle(displayIncidentTitle);
-  // incident.getType(displayType);
-  // incident.getUrl(displayUrl);
+  incident.getIncidentData(displayIncidentDate, displayIncidentTitle, displayType, displayUrl);
 });
 
 var Potd = require('./../js/mashup.js').potdModule;
