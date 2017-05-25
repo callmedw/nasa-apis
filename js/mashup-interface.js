@@ -24,5 +24,6 @@ $(document).ready(function() {
     newPotd.getTitle(displayTitle);
     newPotd.getDescription(displayDescription);
     newPotd.getHdurl(displayHdurl);
+    $('#incident-button').delay(1000).show(0);
   });
 });
