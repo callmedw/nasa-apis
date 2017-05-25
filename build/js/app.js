@@ -5,16 +5,15 @@ exports.apiKey = "iZyQjY1I1JaKIv0GwiE45PAK47xp0D6if4fn99qu";
 Incident = function(){
 };
 
-Incident.prototype.getIncidentData = function(displayIncidentDate, displayIncidentTitle, displayType, displayUrl) {
+Incident.prototype.getIncidentData = function(makeRow, displayIncidentDate, displayIncidentTitle, displayType, displayUrl) {
   $.get('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?').then(function(response) {
     response.events.forEach(function(event){
+      makeRow();
       displayIncidentDate(event.geometries[0].date);
       displayIncidentTitle(event.title);
       displayType(event.categories[0].title);
       displayUrl(event.sources[0].url);
     })
-
-
   }).fail(function(error) {
     $('#row-awesome').append("<tr><td>not found</td></tr>");
   });
@@ -66,26 +65,30 @@ exports.potdModule = Potd;
 },{"./../.env":1}],4:[function(require,module,exports){
 var Incident =  require('./../js/incidents.js').incidentsModule;
 
+var makeRow = function() {
+  $('#table-body').append(`<tr></tr>`);
+}
+
 var displayIncidentDate = function(date){
-  $('#table-body').append(`<td>${date}</td>`);
+  $('tr').last().append(`<td>${date}</td>`);
 };
 
 var displayIncidentTitle = function(title){
-  $('#table-body').append(`<td>${title}</td>`);
+  $('tr').last().append(`<td>${title}</td>`);
 };
 
 var displayType = function(type){
-  $('#table-body').append(`<td>${type}</td>`);
+  $('tr').last().append(`<td>${type}</td>`);
 };
 
 var displayUrl = function(url){
-  $('#table-body').append(`<td>${url}</td>`);
+  $('tr').last().append(`<td><a href="${url}" target="_blank">${url}</a></td>`);
 };
 
 
 $(document).ready(function() {
   var incident = new Incident();
-  incident.getIncidentData(displayIncidentDate, displayIncidentTitle, displayType, displayUrl);
+  incident.getIncidentData(makeRow, displayIncidentDate, displayIncidentTitle, displayType, displayUrl);
 });
 
 var Potd = require('./../js/mashup.js').potdModule;
