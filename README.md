@@ -5,7 +5,7 @@ API calls to a couple NASA apis in this web app.
 ### Setup/Installation Requirements
 * Clone this repo by typing into the terminal:
 ```
-$ git clone https://github.com/jennifer-kinsey/nasa-apis.git
+$ git clone https://github.com/callmedw/nasa-apis.git
 ```
 
 * run the following commands to download the necessary packages:
@@ -38,19 +38,16 @@ The information returned back for the doctor results was limited to name, websit
 * Gulp
 
 ### By Author
-Jennifer Kinsey
+Dana Weiss
 
 ### Support and contact details
 Send a message to the author via Github:
-https://github.com/jennifer-kinsey
+https://github.com/callmedw
 
 
 ### License
 The MIT License (MIT)
 
-Copyright © 2017 Jennifer Kinsey
+Copyright © 2017 Dana Weiss
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software
 
